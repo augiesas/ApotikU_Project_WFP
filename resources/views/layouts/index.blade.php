@@ -50,20 +50,10 @@
                 <li class="active"><a href="index.html">Home</a></li>
                 <li><a href="shop">Store</a></li>
                 <li class="has-children">
-                  <a href="#">Dropdown</a>
+                  <a href="#">Report</a>
                   <ul class="dropdown">
-                    <li><a href="#">Supplements</a></li>
-                    <li class="has-children">
-                      <a href="#">Vitamins</a>
-                      <ul class="dropdown">
-                        <li><a href="#">Supplements</a></li>
-                        <li><a href="#">Vitamins</a></li>
-                        <li><a href="#">Diet &amp; Nutrition</a></li>
-                        <li><a href="#">Tea &amp; Coffee</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="#">Diet &amp; Nutrition</a></li>
-                    <li><a href="#">Tea &amp; Coffee</a></li>
+                    <li><a href="topMedicine">Top Medicine</a></li>
+                    <li><a href="#">Top Customer</a></li>
                     
                   </ul>
                 </li>
@@ -98,7 +88,27 @@
         </div>
       </div>
     </div>
+
     <div class="site-section bg-light">
+      {{-- Start Some Data --}}
+      <div class="row">
+        @foreach ($data as $li)
+        <div class="col-sm-6 col-lg-4 text-center item mb-4"><br>
+          <a href="shop-single.html"> <img src="{{asset('medicines_img/'.$li->image)}}" alt="Image" style="width: 200px; height: 200px;"></a>
+          <h3 class="text-dark"><a href="shop-single.html">{{$li->generic_name}}</a></h3>
+          <p class="price">{{$li->price}}</p>
+        </div>
+        @endforeach
+      </div>
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+          <a href="{{route('shop')}}" class="btn btn-primary px-4 py-3">View All Products</a>
+        </div>
+      </div>
+      {{--END Some Data  --}}
+
+
+
       @yield('content')
     </div>
   </div>

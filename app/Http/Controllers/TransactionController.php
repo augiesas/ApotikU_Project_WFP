@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
+
 class TransactionController extends Controller
 {
     /**
@@ -95,5 +99,34 @@ class TransactionController extends Controller
         $alldata = Transaction::all();
 
         // return view('', compact('alldata'));
+    }
+
+    public function ShowAjax(Request $request)
+    {
+        $id = ($request->get('id'));
+        $data = Transaction::find($id);
+        $products = $data->medicine;
+        return response()->json(array(
+            'msg'=>view('transaction.showModal', compact('data','products'))->render()
+        ),200);
+    }
+
+    public function submit_front()
+    {
+        $this->authorize('checkbuyer');
+
+        $cart = session()->get('cart');
+        $user = Auth::user();
+        $t = new Transaction;
+        $t->buyer_id = $user->id;
+        $t->transaction_date = Carbon::now()->toDateTimeString();
+        $t->save();
+        
+        $totalharga = $t->insertMedicine($cart,$user);
+        $t->total = $totalharga;
+        $t->save();
+
+        session()->forget('cart');
+        return redirect('home');
     }
 }

@@ -14,13 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.index');
-});
+// Route::get('/', function () {
+//     return view('layouts.index');
+// });
 
 
 Auth::routes();
 
+
+// Medicine
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/shop', 'MedicineController@showAllData')->name('shop');
-Route::get('/medicine', 'MedicineController@showTopFiveSold');
+Route::get('/medicine', 'MedicineController@showTopFiveSold')->name('topMedicine');
+Route::get('shop/detail/{id}','MedicineController@detail')->name('medicine.detail');
+Route::get('/', 'MedicineController@showSomeData')->name('someData');

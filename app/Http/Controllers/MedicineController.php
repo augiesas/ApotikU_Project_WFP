@@ -135,6 +135,11 @@ class MedicineController extends Controller
         $alldata = Medicine::all();
         return view('medicine.shop', compact('alldata'));
     }
+    public function showSomeData()
+    {
+        $data = Medicine::all()->take(3);
+        return view('layouts.index', compact('data'));
+    }
 
     public function showTopFiveSold()
     {
@@ -148,7 +153,7 @@ class MedicineController extends Controller
         ->limit(5)
         ->get();
         
-        // return view('', compact('data'));
+        return view('report.topMedicine', compact('data'));
     }
 
     public function showData_byId($medicine_id)
@@ -157,5 +162,12 @@ class MedicineController extends Controller
 
         // return view('', compact('data'));
 
+    }
+
+    public function detail($id){
+        $data = Medicine::find($id);
+        // $product = $data->medicines;
+        // dd($product);
+        return view('medicine.detail',['data'=>$data]);
     }
 }
