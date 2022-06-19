@@ -9,8 +9,8 @@
       <li class="has-children">
         <a class="active" href="#">Report</a>
         <ul class="dropdown">
-          <li class="active"><a href="topMedicine">Top Medicine</a></li>
-          <li><a href="topCustomer">Top Customer</a></li>
+          <li><a href="topMedicine">Top Medicine</a></li>
+          <li class="active"><a href="topCustomer">Top Customer</a></li>
         </ul>
       </li>
       <li><a href="">Profile</a></li>
@@ -31,22 +31,25 @@
 @endsection
 
 @section('content')
-
-
-<div class="site-section">
     <div class="container">
-    <h3>Top 5 Medicine</h3>
+    <h3>Top 3 Customer</h3>
+    <hr> 
     <div class="row">
-        @foreach ($data as $li)
-        <div class="col-sm-6 col-lg-4 text-center item mb-4">
-        <a class= href="shop/detail/{{$li->id}}"> <img src="{{asset('medicines_img/'.$li->image)}}" alt="Image" style="width: 200px; height: 200px;"></a>
-        <h3 class="text-dark"><a href="shop/detail/{{$li->id}}">{{$li->generic_name}}</a></h3>
-        <p class="price">Rp. {{$li->price}}</p>
-        </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+          @foreach ($data as $list)
+          <tr>
+                <td>{{ $list->email}}</td>
+                <td>{{ $list->name}}</td>
+            </tr>
         @endforeach
         
     </div>
     </div>
-</div>
-
 @endsection

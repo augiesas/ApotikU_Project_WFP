@@ -61,13 +61,19 @@
                             </div>
                         </div>
 
-                        <input id="role" type="text" name="role" value="buyer" hidden>
-
+                        @if(Auth::user()->isAdmin())
+                        <input id="role" type="text" name="role" value="buyer">
+@endif
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Edit') }}
                                 </button>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                            <td><a href="home" class="btn btn-warning"><i class="fa fa-angle-left"></i> Back to Home</a></td>
                             </div>
                         </div>
                     </form>

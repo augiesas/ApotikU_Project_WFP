@@ -6,6 +6,7 @@ use App\Medicine;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
 
 class MedicineController extends Controller
@@ -166,8 +167,38 @@ class MedicineController extends Controller
 
     public function detail($id){
         $data = Medicine::find($id);
-        // $product = $data->medicines;
-        // dd($product);
+        
+        dd($data->category);
         return view('medicine.detail',['data'=>$data]);
     }
+
+    public function front_index()
+    {
+        $medicine = Medicine::all();
+        return view('',compact('medicine'));
+    }
+
+    public function addToCart($id)
+    {
+        $med = Medicine::find($id);
+        $cart = session()->get('cart');
+        if(!isset($cart[$id])){
+            $cart[$id]=[
+                "generic_name"=>$med->generic_name,
+                "quantity"=>1,
+                "price"=>$med->price,
+                "photo"=>$med->image
+            ];
+        }else{
+            $cart[$id]['quantity']++;
+        }
+        session()->put('cart',$cart);
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+
+    public function cart()
+    {
+        return view('cart.cart');
+    }
+
 }

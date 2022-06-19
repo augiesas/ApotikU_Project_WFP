@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Transaction;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -25,7 +28,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $user = Auth::user();
+
+        return redirect('layouts.index');
     }
 
     public function data_buyer()
@@ -50,6 +56,6 @@ class HomeController extends Controller
         ->limit(3)
         ->get();
 
-        // return view('', compact('data'));
+        return view('report.topCustomer', compact('data'));
     }
 }

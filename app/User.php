@@ -36,4 +36,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function isAdmin()
+    {
+        foreach ($this->get() as $role) {
+            if ($role['role'] == 'admin') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function transaction(){
+        return $this->hasMany('App\Transaction','user_id','id');
+    }
 }

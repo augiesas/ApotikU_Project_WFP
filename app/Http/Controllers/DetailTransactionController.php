@@ -99,23 +99,11 @@ class DetailTransactionController extends Controller
         //
     }
 
+    // Buat admin
     public function showAllData()
     {
         $alldata = DetailTransaction::all();
 
         return view('', compact('alldata'));
-    }
-
-    public function showAllData_byId($user_id)
-    {
-        $data = DetailTransaction::find($user_id);
-
-        $transaction_id = $data->transaction_id;
-
-        $transaction = Transaction::find($transaction_id);
-
-        $total = $transaction->total;
-
-        return view('', compact('data','total'));
     }
 }

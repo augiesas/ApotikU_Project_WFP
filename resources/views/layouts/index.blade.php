@@ -41,40 +41,79 @@
         <div class="d-flex align-items-center justify-content-between">
           <div class="logo">
             <div class="site-logo">
-              <a href="index.html" class="js-logo-clone">ApotikU</a>
+              <a href="/home" class="js-logo-clone">ApotikU</a>
             </div>
           </div>
           <div class="main-nav d-none d-lg-block">
             <nav class="site-navigation text-right text-md-center" role="navigation">
               <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <li class="active"><a href="index.html">Home</a></li>
+                <li class="active"><a href="/home">Home</a></li>
                 <li><a href="shop">Store</a></li>
                 <li class="has-children">
                   <a href="#">Report</a>
                   <ul class="dropdown">
                     <li><a href="topMedicine">Top Medicine</a></li>
-                    <li><a href="#">Top Customer</a></li>
+                    <li><a href="topCustomer">Top Customer</a></li>
                     
                   </ul>
                 </li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="">Profile</a></li>
+                <li><a href="{{route('history')}}">Riwayat Beli</a></li>
+                <li class="has-children">
+                  <a href="#">User</a>
+                  <ul class="dropdown">
+                  @if (Auth::check() && Auth::user()->isAdmin())
+                    <li><a href="listUser">List User</a></li>
+                  @endif
+                    <li><a href="editUser">Edit Profile</a></li>
+                    
+                  </ul>
+                </li>
+                @if (Auth::check() && Auth::user()->isAdmin())
+                <li class="has-children">
+                  <a href="#">Admin Control</a>
+                  <ul class="dropdown">
+                    <li><a href="listUser">Add Medicine</a></li>
+                    <li><a href="category">Category</a></li>
+                  </ul>
+                </li>
+                @endif
               </ul>
             </nav>
           </div>
           <div class="icons">
-            <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-            <a href="cart.html" class="icons-btn d-inline-block bag">
+            <a href="cart" class="icons-btn d-inline-block bag">
               <span class="icon-shopping-bag"></span>
-              <span class="number">2</span>
             </a>
-            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
-                class="icon-menu"></span></a>
+
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+            @if (Auth::user())
+            <span class="username username-hide-on-mobile">{{ Auth::user()->name}} </span>
+            @endif
+            </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ route('logout') }}"
+                      onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                      {{ __('Logout') }}
+                  </a>
+
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                  </form>
+              </div>
+            </a>
+           
+            
           </div>
         </div>
       </div>
+
+
     </div>
     <!--END NAVBAR -->
+
+    <!-- @yield('banner') -->
 
     <div class="site-blocks-cover" style="background-image: url('images/hero_1.jpg');">
       <div class="container">
@@ -96,7 +135,7 @@
         <div class="col-sm-6 col-lg-4 text-center item mb-4"><br>
           <a href="shop-single.html"> <img src="{{asset('medicines_img/'.$li->image)}}" alt="Image" style="width: 200px; height: 200px;"></a>
           <h3 class="text-dark"><a href="shop-single.html">{{$li->generic_name}}</a></h3>
-          <p class="price">{{$li->price}}</p>
+          <p class="price">Rp. {{$li->price}}</p>
         </div>
         @endforeach
       </div>

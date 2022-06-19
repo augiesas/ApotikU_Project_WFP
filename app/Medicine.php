@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Medicine extends Model
 {
     public $timestamps = false;
-
+    protected $table='medicines';
     // bisa melihat kategori sesuai dengan kolom category_id
     public function category()
     {
@@ -16,7 +16,11 @@ class Medicine extends Model
 
     public function transaction()
     {
-        return $this->belongsToMany('App\Transaction','detail_transaction','medicine_id','transaction_id')
-        ->withPivot('price','quantity','subtotal');
+        return $this->belongsToMany('App\Transaction','detail_transactions','transaction_id','medicine_id')->withPivot('price','quantity','subtotal');
+    }
+
+    public function detailTransaction()
+    {
+        return $this->hasMany('App\DetailTransaction','medicine_id','id');
     }
 }

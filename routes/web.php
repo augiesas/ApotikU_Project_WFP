@@ -20,11 +20,25 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes();
-
-
-// Medicine
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/shop', 'MedicineController@showAllData')->name('shop');
-Route::get('/medicine', 'MedicineController@showTopFiveSold')->name('topMedicine');
-Route::get('shop/detail/{id}','MedicineController@detail')->name('medicine.detail');
 Route::get('/', 'MedicineController@showSomeData')->name('someData');
+
+Route::middleware(['auth'])->group(function () {
+  // Medicine
+
+  Route::get('/shop', 'MedicineController@showAllData')->name('shop');
+  Route::get('/topMedicine', 'MedicineController@showTopFiveSold')->name('topMedicine');
+  Route::get('/topCustomer', 'HomeController@showRoyalBuyer')->name('topCustomer');
+  Route::get('shop/detail/{id}','MedicineController@detail')->name('medicine.detail');
+ 
+  // Route::get('/listuser', '')
+
+	Route::get('cart', 'MedicineController@cart');
+	Route::get('add-to-cart/{id}', 'MedicineController@addToCart');
+
+	Route::get('/checkout', 'TransactionController@form_submit_front');
+	Route::get('/submit_checkout','TransactionController@submit_front')->name('submitcheckout');
+
+ 
+  Route::get('/history_user', 'TransactionController@showAllData_byId')->name('history');
+});

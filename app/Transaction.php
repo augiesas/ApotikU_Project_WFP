@@ -11,15 +11,9 @@ class Transaction extends Model
         return $this->belongsTo('App\User','user_id');
     }
 
-    public function buyer()
-    {
-        return $this->belongsTo('App\Buyer','buyer_id');
-    }
-
     public function medicine()
     {
-        return $this->belongsToMany('App\Medicine', 'detail_transaction','transaction_id','medicine_id')
-        ->withPivot('price','quantity','subtotal');
+        return $this->belongsToMany('App\Medicine', 'detail_transactions','medicine_id','transaction_id')->withPivot('price','quantity','subtotal');
     }
 
     public function insertMedicine($cart, $user)
@@ -31,5 +25,10 @@ class Transaction extends Model
         }
 
         return $total;
+    }
+
+    public function detailTransaction()
+    {
+        return $this->hasMany('App\DetailTransaction','transaction_id','id');
     }
 }

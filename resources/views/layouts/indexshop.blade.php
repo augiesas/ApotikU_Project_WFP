@@ -44,31 +44,34 @@
               <a href="/" class="js-logo-clone">ApotikU</a>
             </div>
           </div>
-          <div class="main-nav d-none d-lg-block">
-            <nav class="site-navigation text-right text-md-center" role="navigation">
-              <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <li><a href="/">Home</a></li>
-                <li class="active"><a href="shop">Store</a></li>
-                <li class="has-children">
-                  <a href="#">Report</a>
-                  <ul class="dropdown">
-                    <li><a href="topMedicine">Top Medicine</a></li>
-                    <li><a href="#">Top Customer</a></li>
-                  </ul>
-                </li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-              </ul>
-            </nav>
-          </div>
+          @yield('navbar')
+          
           <div class="icons">
-            <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-            <a href="cart.html" class="icons-btn d-inline-block bag">
+            <a href="cart" class="icons-btn d-inline-block bag">
               <span class="icon-shopping-bag"></span>
-              <span class="number">2</span>
             </a>
-            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
-                class="icon-menu"></span></a>
+
+
+            <a href="cart" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+            <img alt="" src="{{ asset('conquer2/img/avatar3_small.jpg')}}"/>
+            @if (Auth::user())
+            <span class="username username-hide-on-mobile">{{ Auth::user()->name}} </span>
+            @endif
+            </a><!--  -->
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ route('logout') }}"
+                      onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                      {{ __('Logout') }}
+                  </a>
+
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                  </form>
+              </div>
+            </a>
+           
+            
           </div>
         </div>
       </div>

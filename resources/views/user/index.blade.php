@@ -3,6 +3,7 @@
 @section('content')
 
 
+@if(Auth::user()->isAdmin())
 <div class="site-section">
       <div class="container">
         <div class="row mb-5">
@@ -47,5 +48,5 @@
       
     </div>
 </div>
-
+@endif
 @endsection
