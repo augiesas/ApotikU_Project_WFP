@@ -14,9 +14,23 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        
-    }
+        $alldata = Category::all();
 
+        return view('categories.index', compact('alldata'));
+    }
+    public function deleteData(Request $request)
+    {
+
+        try {
+            $id = $request->get('id');
+            $category = Category::find($id);
+            $category->delete();
+
+       
+        } catch (\PDOException $e) {
+ 
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -39,9 +53,17 @@ class CategoryController extends Controller
         $data->name = $request->get('name');
         $data->description = $request->get('description');
         $data->save();
-        // return redirect()->route('kategori.index')->with('status', 'Kategori berhasil di tambah');
+        return redirect()->route('category.index')->with('status','Category successfully Addded');
     }
-
+    public function getEditForm(Request $request)
+    {
+        $id = $request->post('id');
+        $data = Category::find($id);
+        return response()->json(array(
+            'status' => 'oke',
+            'msg' => view('categories.getEditForm',compact('data'))->render()
+        ), 200);
+    }
     /**
      * Display the specified resource.
      *
@@ -74,11 +96,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        // dd("update");
         $category->name = $request->get('name');
         $category->description = $request->get('description');
         $category->save();
 
-        // return redirect()->route('reportShowCategory')->with('status','Category data is changed');
+        return redirect()->route('category.index')->with('status','Category successfully updated');
     }
 
     /**
@@ -92,11 +115,11 @@ class CategoryController extends Controller
         $this->authorize('delete-permission', $category);
         try {
             $category->delete();
-            // return redirect()->route('kategori.index')->with('status', 'Kategori berhasil di hapus');
+            // return redirect()->route('category.index')->with('status','Category successfully deleted');
         } catch (\PDOException $e) {
             $msg = "Data gagal dihapus. Pastikan data child sudah hilang atau tidak berhubungan";
 
-            // return redirect()->route('kategori.index')->with('error', $msg);
+            // return redirect()->route('category.index')->with('status','Category successfully deleted');
         }
     }
 
@@ -104,6 +127,6 @@ class CategoryController extends Controller
     {
         $alldata = Category::all();
 
-        return view('', compact('alldata'));
+        return view('categories.index', compact('alldata'));
     }
 }

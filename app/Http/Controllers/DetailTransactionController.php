@@ -34,22 +34,19 @@ class DetailTransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($price, $quantity, $transaction_id, $medicine_id)
     {
-        $data = new DetailTransaction();
+        // $data = new DetailTransaction();
 
-        $price = $request->get('price');
-        $quantity = $request->get('quantity');
+        // $data->transaction_id = $transaction_id;
+        // $data->medicine_id = $medicine_id;
+        // $data->price = $price;
+        // $data->quantity = $quantity;
 
-        $data->transaction_id = $request->get('transaction_id');
-        $data->medicine_id = $request->get('medicine_id');
-        $data->price = $price;
-        $data->quantity = $quantity;
+        // $subtotal = $price * $quantity;
+        // $data->sub_total = $subtotal;
 
-        $subtotal = $price * $quantity;
-        $data->sub_total = $subtotal;
-
-        $data->save();
+        // $data->save();
 
         // return redirect()->route('reportShowCategory')->with('status','Category is added');
     }

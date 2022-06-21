@@ -1,4 +1,4 @@
-@extends('layouts.conquer')
+@extends('layouts.index')
 @section('content')
 <div class="site-section">
 <div class="portlet">

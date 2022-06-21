@@ -1,45 +1,31 @@
-@extends('layouts.conquer')
+@extends('layouts.index')
 @section('content')
 <div class="site-section">
 <div class="container">
-  <h2>Daftar Transaksi</h2>
+  <h2 class="text-black">Daftar Transaksi</h2>
 
-  @if($allData)
+  @if($array_detail)
     <table class="table table-striped">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Pembeli</th>
-        <th>Kasir</th>
-        <th>Tanggal Transaction</th>
-        <th>Action</th>
+
+        <th class="text-black">Pembeli</th>
+        <th class="text-black">Tanggal Transaction</th>
+        <th class="text-black">Total</th>
+        <th class="text-black">Detail</th>
       </tr>
     </thead>
     <tbody>
-    @foreach ($allData as $li)
+    @foreach ($array_detail as $li)
       <tr>
-        <td>{{ $li->id }}</td>
-        <td>{{ $li->buyer->name }}</td>
-        <td>{{ $li->user->name }}</td>
-        <td>{{ $li->created_at }}</td>
-        <td>
-          <a class="btn btn-default" data-toggle="modal" href="#basic" onclick="getDetailData({{$li->id}});">Lihat Rincian Pembelian</a>
+      <td class="text-black">{{$li['name']}}</td>
+        <td class="text-black">{{$li['date']}}</td>
+        <td class="text-black">{{$li['total']}}</td>
+        <td class="text-black">
 
-          <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                    <h4 class="modal-title">Detail Transaksi</h4>
-                  </div>
-                  <div class="modal-body">
-                    <div id='msg'></div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div>
-              </div>
-            </div>
-          </div>
+          @foreach ($li['transaction'] as $lis)
+          <p> {{$lis['price']}} * {{$lis['quantity']}}</p>
+          @endforeach
         </td>
       </tr>
     @endforeach
@@ -52,19 +38,4 @@
 
 @endsection
 
-@section('javascript')
-<script>
-    function getDetailData(id) {
-        $.ajax({
-            type: 'POST',
-            url: '{{route("transaction.showAjax")}}',
-            data: '_token= <?php echo csrf_token() ?>&id=' + id,
-            success: function(data) {
-                $('#msg').html(data.msg)
-            }
-        });
-    }
-</script>
-
-</div>
-@endsection
+a

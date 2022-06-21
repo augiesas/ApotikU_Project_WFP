@@ -1,4 +1,4 @@
-@extends('layouts.indexshop')
+@extends('layouts.index')
 
 @section('content')
 <div class="site-section">
@@ -24,7 +24,7 @@
                 <tr>
                 <td data-th="Product">
                     <div class="row">
-                            <h4 class="nomargin">{{ $details['name'] }}</h4>
+                            <h4 class="nomargin">{{ $details['generic_name'] }}</h4>
                         </div>
                     </div>
                 </td>
@@ -44,11 +44,8 @@
        
         </tbody>
         <tfoot>
-        <tr class="visible-xs">
-            <td class="text-center"><strong>{{ $total }}</strong></td>
-        </tr>
         <tr>
-            <td><a href="{{ url('/') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+            <td><a href="{{ route('shop') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
             <td colspan="2" class="hidden-xs"> <a href="{{ route('submitcheckout') }}" class="btn btn-danger"> Finish <i class="fa fa-angle-right"></i></a></td>
             <td class="hidden-xs text-center"><strong>Total Rp. {{ $total }}</strong></td>
         </tr>

@@ -30,7 +30,7 @@ class MedicineController extends Controller
     {
         $category = Category::all();
 
-        // return view('medicine.create', compact('category'));  
+        return view('medicine.create', compact('category'));  
     }
 
     /**
@@ -42,6 +42,13 @@ class MedicineController extends Controller
     public function store(Request $request)
     {
         $data = new Medicine(); 
+
+        $file = $request->file('image');
+        $imgFolder = 'medicines_img';
+        $imgFile = time()."_".$file->getClientOriginalName();
+        $file->move($imgFolder, $imgFile);
+        $data->image = $imgFile;
+        // dd($imgFile);
 
         $data->generic_name = $request->get('generic_name');
         $data->form = $request->get('form');
@@ -55,7 +62,7 @@ class MedicineController extends Controller
 
         $data->save();
 
-        // return redirect()->route('reportShowAllDataNFP')->with('status','Medicine is added');
+        return redirect()->route('listmedicine')->with('status','Medicine is added');
     }
 
     /**
@@ -80,7 +87,7 @@ class MedicineController extends Controller
         $data = $medicine;
         $category = $data->category;
         $allcategory = Category::all();
-        // return view('medicine.edit', compact('data', 'category','allcat'));
+        return view('medicine.edit', compact('data', 'category','allcategory'));
     }
 
     /**
@@ -92,6 +99,12 @@ class MedicineController extends Controller
      */
     public function update(Request $request, Medicine $medicine)
     {
+        $file = $request->file('image');
+        $imgFolder = 'medicines_img';
+        $imgFile = time()."_".$file->getClientOriginalName();
+        $file->move($imgFolder, $imgFile);
+        $medicine->image=$imgFile;
+        
         $medicine->generic_name = $request->get('name');
         $medicine->form = $request->get('form');
         $medicine->restriction_formula = $request->get('restriction');
@@ -102,13 +115,9 @@ class MedicineController extends Controller
         $medicine->faskes3 = $request->get('faskes3');
         $medicine->category_id = $request->get('category');
 
-        $file = $request->file('img');
-        $imgFolder = 'images';
-        $imgFile = time()."_".$file->getClientOriginalName();
-        $file->move($imgFolder, $imgFile);
-        $medicine->image=$imgFile;
+        
         $medicine->save();
-        // return redirect()->route('reportAllMed')->with('status', 'Medicine berhasil di rubah');
+        return redirect()->route('listmedicine')->with('status', 'Medicine successfully updated');
     }
 
     /**
@@ -123,23 +132,38 @@ class MedicineController extends Controller
         // $data = Medicine::find($medicine);
         try {
             $medicine->delete();
-            // return redirect()->route('reportAllMed')->with('status', 'Kategori berhasil di hapus');
+            return redirect()->route('listmedicine')->with('status', 'Medicine is Deleted');
         } catch (\PDOException $e) {
-            $msg = "Data gagal dihapus. Pastikan data child sudah hilang atau tidak berhubungan";
+            $msg = "Can't delete this medicine";
 
-            // return redirect()->route('reportAllMed')->with('error', $msg);
+            return redirect()->route('listmedicine')->with('error', $msg);
         }
     }
-
+    public function getEditForm(Request $request)
+    {
+        $id = $request->get('id');
+        $data = Medicine::find($id);
+        $data_category = $data->category;
+        $dataCategory = Category::all();
+        return response()->json(array(
+            'status' => 'oke',
+            'msg' => view('medicine.getEditForm', compact('data','data_category', 'dataCategory'))->render()
+        ), 200);
+    }
     public function showAllData()
     {
         $alldata = Medicine::all();
         return view('medicine.shop', compact('alldata'));
     }
+    public function showAllDataAdmin()
+    {
+        $alldata = Medicine::all();
+        return view('medicine.listmedicine', compact('alldata'));
+    }
     public function showSomeData()
     {
         $data = Medicine::all()->take(3);
-        return view('layouts.index', compact('data'));
+        return view('welcome', compact('data'));
     }
 
     public function showTopFiveSold()
@@ -168,7 +192,7 @@ class MedicineController extends Controller
     public function detail($id){
         $data = Medicine::find($id);
         
-        dd($data->category);
+        // dd($data->category);
         return view('medicine.detail',['data'=>$data]);
     }
 
@@ -184,6 +208,7 @@ class MedicineController extends Controller
         $cart = session()->get('cart');
         if(!isset($cart[$id])){
             $cart[$id]=[
+                "id"=>$med->id,
                 "generic_name"=>$med->generic_name,
                 "quantity"=>1,
                 "price"=>$med->price,
@@ -198,7 +223,9 @@ class MedicineController extends Controller
 
     public function cart()
     {
+        $this->authorize('checkbuyer');
         return view('cart.cart');
     }
+
 
 }

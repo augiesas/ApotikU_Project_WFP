@@ -1,4 +1,4 @@
-@extends('layouts.indexshop')
+@extends('layouts.index')
 
 @section('navbar')
 <div class="main-nav d-none d-lg-block">
@@ -35,7 +35,7 @@
 
 <div class="site-section">
     <div class="container">
-    <h3>Top 5 Medicine</h3>
+    <h3 class="text-black">Top 5 Medicine</h3>
     <div class="row">
         @foreach ($data as $li)
         <div class="col-sm-6 col-lg-4 text-center item mb-4">

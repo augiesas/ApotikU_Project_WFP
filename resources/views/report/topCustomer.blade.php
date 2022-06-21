@@ -1,55 +1,25 @@
-@extends('layouts.indexshop')
-
-@section('navbar')
-<div class="main-nav d-none d-lg-block">
-  <nav class="site-navigation text-right text-md-center" role="navigation">
-    <ul class="site-menu js-clone-nav d-none d-lg-block">
-      <li><a href="/">Home</a></li>
-      <li><a href="shop">Store</a></li>
-      <li class="has-children">
-        <a class="active" href="#">Report</a>
-        <ul class="dropdown">
-          <li><a href="topMedicine">Top Medicine</a></li>
-          <li class="active"><a href="topCustomer">Top Customer</a></li>
-        </ul>
-      </li>
-      <li><a href="">Profile</a></li>
-      <li><a href="{{route('history')}}">Riwayat Beli</a></li>
-      <li class="has-children">
-        <a href="#">User</a>
-        <ul class="dropdown">
-        @if (Auth::user()->isAdmin())
-          <li><a href="listUser">List User</a></li>
-          @endif
-          <li><a href="editUser">Edit Profile</a></li>
-          
-        </ul>
-      </li>
-    </ul>
-  </nav>
-</div>
-@endsection
+@extends('layouts.index')
 
 @section('content')
     <div class="container">
-    <h3>Top 3 Customer</h3>
+    <h3 class="text-black">Top 3 Customer</h3>
     <hr> 
     <div class="row">
-      <table class="table table-hover">
+      <table class="table table-striped">
         <thead>
           <tr>
-            <th>Email</th>
-            <th>Name</th>
+            <th class="h4 text-black">Email</th>
+            <th class="h4 text-black">Name</th>
             </tr>
         </thead>
         <tbody>
           @foreach ($data as $list)
           <tr>
-                <td>{{ $list->email}}</td>
-                <td>{{ $list->name}}</td>
+                <td><h2 class="h5 text-black">{{ $list->email}}</h2></td>
+                <td><h2 class="h5 text-black">{{ $list->name}}</h2></td>
             </tr>
         @endforeach
-        
+      </table>
     </div>
     </div>
 @endsection
