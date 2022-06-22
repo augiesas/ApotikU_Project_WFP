@@ -101,6 +101,10 @@ class TransactionController extends Controller
 
     public function showAllData()
     {
+        $array_detail = [];
+        $array_medicine = [];
+        $count = 0;
+
         $allData = Transaction::all();
         $array_detail = [];
         $count = 0;
@@ -111,13 +115,31 @@ class TransactionController extends Controller
             $id_transaction = $d->id;
             $array_detail[$count] = array(
                 'name' => $user->name,
-                'transaction' => DetailTransaction::where('transaction_id', $id_transaction)->get(),
+                'transaction' => $d->id,
                 'total' => $d->total,
                 'date'=>$d->transaction_date
             );
             $count++;
             
         }
+        
+        // $allData = Transaction::all();
+        // $array_detail = [];
+        // $count = 0;
+        // foreach ($allData as $d) {
+        //     $user_id = $d->user_id;
+        //     $user = User::find($user_id);
+
+        //     $id_transaction = $d->id;
+        //     $array_detail[$count] = array(
+        //         'name' => $user->name,
+        //         'transaction' => DetailTransaction::where('transaction_id', $id_transaction)->get(),
+        //         'total' => $d->total,
+        //         'date'=>$d->transaction_date
+        //     );
+        //     $count++;
+            
+        // }
         // dd($array_detail);
 
         return view('transaction.show', compact('array_detail'));
@@ -126,10 +148,14 @@ class TransactionController extends Controller
     public function ShowAjax(Request $request)
     {
         $id = ($request->get('id'));
-        $data = Transaction::find($id);
-        $products = $data->medicine;
+        $products = [];
+        $data = DetailTransaction::where('transaction_id',$id)->get();
+        foreach($data as $d){
+            array_push($products, Medicine::find($d->medicine_id));
+        }
+    
         return response()->json(array(
-            'msg' => view('transaction.showModal', compact('data', 'products'))->render()
+            'msg' => view('transaction.getDetailForm', compact('data', 'products'))->render()
         ), 200);
     }
 
@@ -172,22 +198,55 @@ class TransactionController extends Controller
         return view('cart.checkout');
     }
 
+    public function getMed($arraydetail)
+    {
+        $data_med = [];
+        foreach($arraydetail as $detail){
+            $id = $detail->medicine_id;
+            array_push($data_med,Medicine::find($id));
+        }
+        return $data_med;
+    }
+
+    public function findDetail($id)
+    {
+        $data = DetailTransaction::where('transaction_id',$id)->get();
+        foreach($data as $d){
+            $data_medicine = Medicine::find($d->id);
+        }
+
+        return response()->json(array(
+            'msg' => view('transaction.getDetailForm', compact('data', 'products'))->render()
+        ), 200);
+    }
+
     public function showAllData_byId()
     {
-        $array_detail = [];
+        $array_transaction = [];
+        $array_medicine = [];
+        $count = 0;
+        $count1 = 0;
         $user = Auth::user();
 
         $data = Transaction::where('user_id', $user->id)->get();
 
+        // ambil data transaksi
         foreach ($data as $d) {
-            $data_detail = $d->detailTransaction;
-            foreach ($data_detail as $detail) {
-                $med_id = $detail->medicine_id;
-                $data_med = Medicine::find($med_id);
-                array_push($array_detail, $data_med);
-            }
+            $detailTransaction = $d->detailTransaction;
+            $array_transaction[$count] = [
+                'transaction_id' => $d->id,
+                'transaction_date' => $d->transaction_date,
+                'total' => $d->total,
+                'data_detailtrans' => $detailTransaction,
+                // 'medicine' => $this->getMed($detailTransaction),
+            ];
+            
+            $count++;
         }
+        // dd($array_transaction);
 
-        return view('transaction.show_history', compact('data', 'array_detail'));
+        return view('transaction.show_history', compact('array_transaction'));
     }
+
+    
 }

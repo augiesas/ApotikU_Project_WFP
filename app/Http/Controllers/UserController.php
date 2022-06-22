@@ -71,9 +71,14 @@ class UserController extends Controller
     // Jalanin proses edit
     public function update(Request $request, User $user)
     {
+        // $this->Validator::make($request, [
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //     'password' => ['required', 'string', 'min:8', 'confirmed'],
+        // ]);
         $user->name = $request->get('name');
-        $user->email = $request->get('email');
         $user->role = $request->get('role');
+        // $confirm = $request->get('password_confirmation');
         $user->save();
         return redirect()->route('home');
     }

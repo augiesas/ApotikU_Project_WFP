@@ -48,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
 
   Route::get('/alltrans', 'TransactionController@showAllData')->name('alltrans');
   Route::get('/history_user', 'TransactionController@showAllData_byId')->name('history');
+  // Route::get('/history/{id}', 'TransactionController@')->name('history');
 
 
   Route::resource('category','CategoryController');
@@ -59,4 +60,8 @@ Route::middleware(['auth'])->group(function () {
   // Panggil waktu button click
   Route::post('/user/update', 'UserController@update')->name('user.update');
   Route::post('/user/delete', 'UserController@destroy')->name('user.delete');
+
+  // Panggil ajax
+  Route::post('/transaction/showDataAjax/', 'TransactionController@ShowAjax')->name('transaction.ShowAjax');
+
 });

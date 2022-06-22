@@ -154,7 +154,7 @@
 
                         <div class="block-7">
                             <h3 class="footer-heading mb-4">About Us</h3>
-                            <p>ApotekU <br> 160419022 - Augie Salvatory A, 160419048 - Golden Wijaya O, 160419063 - Dhikananda Vinita, 160419069 - Nur Fitriana, 160419155 - Eduard William</p>
+                            <p>ApotekU <br> 160419022 - Augie Salvatory A, 160419048 - Golden Wijaya O, 160419063 - Dhikananda Vinita, 160419069 - Nur Fitriana, 160419155 - Eduard Williams T</p>
                         </div>
 
                     </div>
