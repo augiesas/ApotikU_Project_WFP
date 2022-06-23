@@ -40,7 +40,7 @@
                                     <label class="control-label col-sm-2" for="name_category">Name:</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="name" placeholder="Enter Name"
-                                            name="name">
+                                            name="name" required>
                                     </div>
                                 </div>
 
@@ -130,11 +130,14 @@
                     'id': id
                 },
                 success: function(data) {
+                    console.log(data.status)
                     if (data.status == 'ok') {
-                        $('#modalContent').html(data.msg)
-                        // location.reload();
-                        console.log($('#tr_' + id));
-                        $('#tr_' + id).remove();
+                        console.log('masuk ok')
+                        console.log(data.msg)
+                        alert(data.msg)
+                        location.reload();
+                    } else if(data.status == 'no'){
+                        alert(data.msg)
                     }
                 }
             });

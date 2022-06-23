@@ -36,19 +36,7 @@ class DetailTransactionController extends Controller
      */
     public function store($price, $quantity, $transaction_id, $medicine_id)
     {
-        // $data = new DetailTransaction();
-
-        // $data->transaction_id = $transaction_id;
-        // $data->medicine_id = $medicine_id;
-        // $data->price = $price;
-        // $data->quantity = $quantity;
-
-        // $subtotal = $price * $quantity;
-        // $data->sub_total = $subtotal;
-
-        // $data->save();
-
-        // return redirect()->route('reportShowCategory')->with('status','Category is added');
+        //
     }
 
     /**

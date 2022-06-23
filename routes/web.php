@@ -35,7 +35,6 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/topCustomer', 'UserController@showRoyalBuyer')->name('topCustomer');
   Route::get('/listmedicine','MedicineController@showAllDataAdmin')->name('listmedicine');
   Route::post('/medicine/getEditForm', 'MedicineController@getEditForm')->name('medicine.getEditForm');
-  Route::post('/medicine/deleteData', 'MedicineController@deleteData')->name('medicine.deleteData');
 
   Route::get('addmedicine', 'MedicineController@create')->name('addmedicine');
 
@@ -50,8 +49,6 @@ Route::middleware(['auth'])->group(function () {
 
   Route::get('/alltrans', 'TransactionController@showAllData')->name('alltrans');
   Route::get('/history_user', 'TransactionController@showAllData_byId')->name('history');
-  // Route::get('/history/{id}', 'TransactionController@')->name('history');
-
 
 
   Route::get('categoryy', 'CategoryController@showAllData')->name('categoryy');

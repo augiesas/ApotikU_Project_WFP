@@ -45,7 +45,6 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $data = new Transaction();
-        // dd($request->get('total'));
         $data->user_id = $request->get('user_id');
         $data->total = $request->get('total');
         $data->transaction_date = $request->get('transaction_date');
@@ -122,25 +121,6 @@ class TransactionController extends Controller
             $count++;
             
         }
-        
-        // $allData = Transaction::all();
-        // $array_detail = [];
-        // $count = 0;
-        // foreach ($allData as $d) {
-        //     $user_id = $d->user_id;
-        //     $user = User::find($user_id);
-
-        //     $id_transaction = $d->id;
-        //     $array_detail[$count] = array(
-        //         'name' => $user->name,
-        //         'transaction' => DetailTransaction::where('transaction_id', $id_transaction)->get(),
-        //         'total' => $d->total,
-        //         'date'=>$d->transaction_date
-        //     );
-        //     $count++;
-            
-        // }
-        // dd($array_detail);
 
         return view('transaction.show', compact('array_detail'));
     }
@@ -238,12 +218,10 @@ class TransactionController extends Controller
                 'transaction_date' => $d->transaction_date,
                 'total' => $d->total,
                 'data_detailtrans' => $detailTransaction,
-                // 'medicine' => $this->getMed($detailTransaction),
             ];
             
             $count++;
         }
-        // dd($array_transaction);
 
         return view('transaction.show_history', compact('array_transaction'));
     }

@@ -167,9 +167,9 @@
                         <div class="block-5 mb-5">
                             <h3 class="footer-heading mb-4">Contact Info</h3>
                             <ul class="list-unstyled">
-                                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
-                                <li class="phone"><a href="">+2 392 3929 210</a></li>
-                                <li class="email">emailaddress@domain.com</li>
+                                <li class="address">Universitas Surabaya, Indonesia</li>
+                                <li class="phone"><a href="">+6231 298 1000/1005/1352</a></li>
+                                <li class="email">s160419022@student.ubaya.ac.id</li>
                             </ul>
                         </div>
 

@@ -133,7 +133,6 @@ class MedicineController extends Controller
     public function destroy(Medicine $medicine)
     {
         $this->authorize('delete-permission', $medicine);
-        // $data = Medicine::find($medicine);
         try {
             $medicine->delete();
             return redirect()->route('listmedicine')->with('status', 'Medicine is Deleted');
@@ -190,18 +189,16 @@ class MedicineController extends Controller
         return view('report.topMedicine', compact('data'));
     }
 
-    public function showData_byId($medicine_id)
-    {
-        $data = Medicine::find($medicine_id);
+    // public function showData_byId($medicine_id)
+    // {
+    //     $data = Medicine::find($medicine_id);
 
-        // return view('', compact('data'));
-
-    }
+    //     // return view('', compact('data'));
+    // }
 
     public function detail($id){
         $data = Medicine::find($id);
         
-        // dd($data->category);
         return view('medicine.detail',['data'=>$data]);
     }
 
@@ -214,7 +211,6 @@ class MedicineController extends Controller
     public function addToCart($id)
     {
         $user = Auth::user();
-        // dd($user);
 
         if($user != null){
             $med = Medicine::find($id);

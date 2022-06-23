@@ -11,7 +11,7 @@
             <label class="control-label col-sm-2" for="name_category">Name:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="eName" placeholder="Enter Name" name="name"
-                    value='{{ $data->name }}'>
+                    value='{{ $data->name }}' required>
             </div>
         </div>
 

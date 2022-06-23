@@ -43,7 +43,6 @@
                     </div>
 
                 </div>
-                <!-- End Modal Edit A -->
         </div>
     @else
         <h2>Tidak ada data</h2>

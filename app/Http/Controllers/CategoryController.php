@@ -26,15 +26,13 @@ class CategoryController extends Controller
             $id = $request->get('id');
             $category = Category::find($id);
             $category->delete();
-            // return redirect()->route('category.index')->with('status','Category successfully deleted');
             return response()->json(array(
                 'status' => 'ok',
                 'msg' => 'Category successfully deleted'
             ), 200);
         } catch (\PDOException $e) {
-            // return redirect()->route('category.index')->with('status','You Cannot Delete ');
             return response()->json(array(
-                'status' => 'ok',
+                'status' => 'no',
                 'msg' => 'You Cannot Delete'
             ), 200);
         }
@@ -103,7 +101,6 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        // dd("update");
         $category->name = $request->get('name');
         $category->description = $request->get('description');
         $category->save();
@@ -123,7 +120,6 @@ class CategoryController extends Controller
         $this->authorize('delete-permission', $user);
 
         $category = Category::find($id);
-        // $data = Medicine::find($category);
         try {
             $category->delete();
             return redirect()->route('category.index')->with('status','Category successfully deleted');

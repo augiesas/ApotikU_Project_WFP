@@ -40,7 +40,6 @@
                                                             class="btn btn-outline-primary js-btn-minus userEdit" id="{{ $li->id }}">Edit</a>
                                                     </div>
                                             </td>
-                                            <!-- <td><a href="#" class="btn btn-primary height-auto btn-sm">X</a></td> -->
                                         </tr>
                                     @endforeach
 

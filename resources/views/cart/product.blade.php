@@ -4,7 +4,6 @@
 @section('content')
 
     <div class="container products">
-
         <div class="row">
             @foreach($medicines as $medicine)
             <div class="col-xs-18 col-sm-6 col-md-3">
@@ -19,8 +18,7 @@
                 </div>
             </div>
             @endforeach
-        </div><!-- End row -->
-
+        </div>
     </div>
 
 @endsection
