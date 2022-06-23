@@ -17,8 +17,12 @@
             
 
             <p><strong class="text-primary h4">Rp. {{$data->price}}</strong></p>
-
+            @if (Auth::check())
             <p class="btn-holder"><a href="{{url('add-to-cart/'.$data->id)}}" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
+            @else
+            <p class="btn-holder"><a href="{{route('login')}}" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
+                    @endif
+           
             @can('delete-permission', $data)
                     <form method="POST" action="{{url('medicine/'.$data->id)}}">
                       @csrf

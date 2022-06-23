@@ -10,27 +10,27 @@
     @method("PUT")
       <label class="control-label col-sm-2">Image</label>
       <div class="col-sm-10">
-        <input type="file" name="image" id="image" class="form-control">
+        <input type="file" name="image" id="image" class="form-control" >
       </div>
     <div class="mb-3">
       <label for="inputGenericName" class="form-label">Generic Name Of Medicine</label>
-      <input type="text" class="form-control" id="inputGenericName" name="name" value="{{$data->generic_name}}" >
+      <input type="text" class="form-control" id="inputGenericName" name="name" value="{{$data->generic_name}}" required>
     </div><br>
     <div>
       <label for="inputFormula" class="form-label">Formula Of Medicine</label>
-      <input type="text" class="form-control" id="inputFormula" name="form" value="{{$data->form}}">
+      <input type="text" class="form-control" id="inputFormula" name="form" value="{{$data->form}}" required>
     </div><br>
     <div>
       <label for="inputRestrictionFormula" class="form-label">Restriction Formula Of Medicine</label>
-      <input type="text" class="form-control" id="inputRestrictionFormula" name="restriction" value="{{$data->restriction_formula}}">
+      <input type="text" class="form-control" id="inputRestrictionFormula" name="restriction" value="{{$data->restriction_formula}}" required>
     </div><br>
     <div>
       <label for="inputPrice" class="form-label">Price Of Medicine</label>
-      <input type="text" class="form-control" id="inputPrice" name="price" value="{{$data->price}}">
+      <input type="text" class="form-control" id="inputPrice" name="price" value="{{$data->price}}" required>
     </div><br>
     <div class="mb-3">
       <label for="inputDescription" class="form-label">Description of Category</label>
-      <textarea name="description" rows="10" cols="30" class="form-control">{{$data->description}}</textarea>
+      <textarea name="description" rows="10" cols="30" class="form-control" required>{{$data->description}}</textarea>
     </div><br><br>
     <label for="category">Choose a Category ID:</label>
     <select id="category" name="category" rows="10" cols="10">

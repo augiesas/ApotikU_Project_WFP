@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Transaction;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
@@ -44,8 +45,8 @@ class UserController extends Controller
     public function showRoyalBuyer()
     {
         $data = User::join('transactions', 'users.id', '=', 'transactions.user_id')
-        ->select('users.id','users.name','users.email','users.password','users.role', DB::raw('transactions.total as total'))
-        ->groupBy('users.id','users.name','users.email','users.password','users.role', 'transactions.total')
+        ->select('users.id','users.name','users.email', DB::raw('SUM(transactions.total) as total'))
+        ->groupBy('users.id','users.name','users.email')
         ->orderBy('total', 'desc')
         ->limit(3)
         ->get();

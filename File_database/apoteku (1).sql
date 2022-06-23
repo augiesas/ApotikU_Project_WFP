@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2022 at 03:02 PM
+-- Generation Time: Jun 23, 2022 at 02:46 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -45,10 +45,10 @@ INSERT INTO `categories` (`id`, `name`, `description`) VALUES
 (5, 'Anestetik Lokal', ''),
 (6, 'Anestetik Umum dan Oksigenl', ''),
 (7, 'Obat Untuk Prosedur pre-Operatif', ''),
-(8, 'antialergi dan obat untuk anafilaksis', ''),
-(9, 'antiepilepsi - antikonvulsi', ''),
+(8, 'Antialergi dan obat untuk anafilaksis', NULL),
+(9, 'Antiepilepsi - antikonvulsi', NULL),
 (10, 'Antelmintik Intestinal', ''),
-(34, 'jk', 'jnbh');
+(34, 'jk', 'ya');
 
 -- --------------------------------------------------------
 
@@ -86,7 +86,15 @@ INSERT INTO `detail_transactions` (`price`, `quantity`, `subtotal`, `transaction
 (11000.00, 3.00, 33000.00, 25, 3),
 (12000.00, 1.00, 12000.00, 25, 6),
 (21000.00, 1.00, 21000.00, 25, 9),
-(9000.00, 2.00, 18000.00, 25, 4);
+(9000.00, 2.00, 18000.00, 25, 4),
+(10500.00, 1.00, 10500.00, 26, 2),
+(18000.00, 1.00, 18000.00, 26, 25),
+(14000.00, 2.00, 28000.00, 26, 29),
+(14000.00, 1.00, 14000.00, 27, 11),
+(20000.00, 1.00, 20000.00, 27, 18),
+(17000.00, 1.00, 17000.00, 28, 15),
+(16000.00, 1.00, 16000.00, 29, 10),
+(73200.00, 1.00, 73200.00, 29, 32);
 
 -- --------------------------------------------------------
 
@@ -115,7 +123,7 @@ CREATE TABLE `medicines` (
   `form` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `restriction_formula` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` double(8,2) NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `faskes1` tinyint(1) NOT NULL,
   `faskes2` tinyint(1) NOT NULL,
   `faskes3` tinyint(1) NOT NULL,
@@ -158,7 +166,7 @@ INSERT INTO `medicines` (`id`, `generic_name`, `form`, `restriction_formula`, `p
 (28, 'albendazol', 'tab 400 mg', ' ', 8000.00, ' ', 1, 1, 1, 'Albendazole_tab400mg.jpg', 10),
 (29, 'albendazol', 'susp 200 mg/5 mL', ' ', 14000.00, ' ', 1, 1, 1, 'albendazol_susp 200 mg.png', 10),
 (30, 'mebendazol', 'tab 100 mg', ' ', 9000.00, ' ', 1, 1, 1, 'Mebendazole-100mg.jpg', 10),
-(32, 'OBH Combi Batuk Berdahak Menthol Sirup 100 ml', 'Tiap 5 mL sirup mengandung Succus liquiritiae extract 167 mg, ammonium Chloride 50 mg, anise oil 0.99 mg, ammon liqduid 7 microliter, menthol crystal 4.44 mg, peppermint oil 3.16 mg, alcohol 2% Dosis', '3 kali sehari 3 sendok takar (@15 ml)', 73200.00, 'obat', 1, 0, 0, '1655790324_obh.jpg', 34);
+(32, 'OBH Combi Batuk Berdahak Menthol Sirup 100 ml', 'Tiap 5 mL sirup mengandung Succus liquiritiae extract 167 mg, ammonium Chloride 50 mg, anise oil 0.99 mg, ammon liqduid 7 microliter, menthol crystal 4.44 mg, peppermint oil 3.16 mg, alcohol 2% Dosis', '3 kali sehari 3 sendok takar (@15 ml)', 73200.00, 'obat batuk', 1, 0, 0, '1655790324_obh.jpg', 34);
 
 -- --------------------------------------------------------
 
@@ -225,7 +233,11 @@ INSERT INTO `transactions` (`id`, `transaction_date`, `total`, `user_id`) VALUES
 (21, '2022-06-21 07:52:02', 70000.00, 2),
 (23, '2022-06-21 07:55:07', 27500.00, 5),
 (24, '2022-06-21 07:55:35', 19000.00, 4),
-(25, '2022-06-22 08:11:35', 84000.00, 4);
+(25, '2022-06-22 08:11:35', 84000.00, 4),
+(26, '2022-06-23 08:48:40', 56500.00, 8),
+(27, '2022-06-23 11:28:56', 34000.00, 5),
+(28, '2022-06-23 11:29:20', 17000.00, 4),
+(29, '2022-06-23 11:30:39', 89200.00, 4);
 
 -- --------------------------------------------------------
 
@@ -255,7 +267,10 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `remember_token`
 (4, 'Dhikananda Vinita', 'dhika@gmail.com', '$2y$10$GdkRF72T483mhBiiOyerDO5nq2gVn2dcFd8gzNBAxYbgG2XYUmmKC', 'buyer', NULL, '2022-06-20 19:13:39', '2022-06-20 19:13:39'),
 (5, 'Eduard Williams', 'willy@gmail.com', '$2y$10$1/4MvEi3522ZI7vj7BfXX.Uqgq.Nhkm0k8evklMOSartrfYHCbAfK', 'buyer', NULL, '2022-06-20 19:17:57', '2022-06-20 19:17:57'),
 (6, 'Augie Salvatory', 'augie@gmail.com', '$2y$10$APra/1bE.7RqBVs3GJkFhOyzCoWBiYAVF.cwyJ7Pk.RtWjN3h81qe', 'buyer', NULL, '2022-06-20 19:19:51', '2022-06-20 19:19:51'),
-(7, 'test123', 'test@gmail.com', '$2y$10$kXW1OYD887bLVyzxFN3sVORKe8.TqA98Ui9/lBVl4DyBWtYnlzEbO', 'buyer', NULL, '2022-06-20 19:24:23', '2022-06-21 00:57:36');
+(7, 'test123', 'test@gmail.com', '$2y$10$kXW1OYD887bLVyzxFN3sVORKe8.TqA98Ui9/lBVl4DyBWtYnlzEbO', 'buyer', NULL, '2022-06-20 19:24:23', '2022-06-23 04:22:47'),
+(8, 'ogeng', 'ogik@gmail.com', '$2y$10$iJZzSo7epXNoh7.O2.4l1e8vKw0fzvVoc0Fy0zzL9rn13xiOPZxd6', 'buyer', NULL, '2022-06-23 01:45:47', '2022-06-23 01:47:05'),
+(9, 'Ani', 'ani@gmail.com', '$2y$10$boDK2scYT8xTvcrolyDRC.3NjBY8I7PfK4ex4VhrPCkg2HHRuC7Be', 'buyer', NULL, '2022-06-23 04:25:14', '2022-06-23 04:25:14'),
+(10, 'Ana', 'ana@gmail.com', '$2y$10$X.MrCl/w/Kod/5Q5tTvnVOX3bUO/t1/PEF9FfT9F3Da2quUhZA7qG', 'buyer', NULL, '2022-06-23 04:25:59', '2022-06-23 04:25:59');
 
 --
 -- Indexes for dumped tables
@@ -321,7 +336,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -333,7 +348,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `medicines`
 --
 ALTER TABLE `medicines`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -345,13 +360,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

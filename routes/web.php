@@ -25,9 +25,11 @@ Route::get('/', 'MedicineController@showSomeData')->name('someData');
 Route::get('/shop', 'MedicineController@showAllData')->name('shop');
 Route::get('/detail/{id}','MedicineController@detail')->name('medicine.detail');
 Route::resource('user','UserController');
+
 Route::middleware(['auth'])->group(function () {
   // Medicine
   Route::resource('medicine', 'MedicineController');
+  Route::resource('category','CategoryController');
 
   Route::get('/topMedicine', 'MedicineController@showTopFiveSold')->name('topMedicine');
   Route::get('/topCustomer', 'UserController@showRoyalBuyer')->name('topCustomer');
@@ -51,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
   // Route::get('/history/{id}', 'TransactionController@')->name('history');
 
 
-  Route::resource('category','CategoryController');
+
   Route::get('categoryy', 'CategoryController@showAllData')->name('categoryy');
   Route::post('category/deleteData','CategoryController@deleteData')->name('category.deleteData');
   Route::post('category/getEditForm','CategoryController@getEditForm')->name('category.getEditForm');

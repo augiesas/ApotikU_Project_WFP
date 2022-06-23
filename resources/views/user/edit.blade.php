@@ -34,10 +34,26 @@
                             @if (Auth::user()->isAdmin())
                                 <div class="form-group row">
                                     <label for="role" class="col-md-4 col-form-label text-md-right">Role</label>
-
                                     <div class="col-md-6">
-                                        <input id="role" class="form-control" required type="text" name="role"
-                                            value="{{ $data->role }}">
+                                        @if ($data->role == 'buyer')
+                                            <div>
+                                                <input type="radio" id="buyer" name="role" value="buyer" checked>
+                                                <label for="buyer">Buyer</label><br>
+                                            </div>
+                                            <div>
+                                                <input type="radio" id="admin" name="role" value="admin">
+                                                <label for="admin">Admin</label><br>
+                                            </div>
+                                        @else
+                                            <div>
+                                                <input type="radio" id="buyer" name="role" value="buyer">
+                                                <label for="buyer">Buyer</label><br>
+                                            </div>
+                                            <div>
+                                                <input type="radio" id="admin" name="role" value="admin" checked>
+                                                <label for="admin">Admin</label><br>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             @else

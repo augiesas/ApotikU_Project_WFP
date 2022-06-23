@@ -36,17 +36,31 @@
 <div class="site-section">
     <div class="container">
     <h3 class="text-black">Top 5 Medicine</h3>
-    <div class="row">
-        @foreach ($data as $li)
-        <div class="col-sm-6 col-lg-4 text-center item mb-4">
-        <a class= href="shop/detail/{{$li->id}}"> <img src="{{asset('medicines_img/'.$li->image)}}" alt="Image" style="width: 200px; height: 200px;"></a>
-        <h3 class="text-dark"><a href="shop/detail/{{$li->id}}">{{$li->generic_name}}</a></h3>
-        <p class="price">Rp. {{$li->price}}</p>
-        </div>
-        @endforeach
-        
-    </div>
-    </div>
+
+    <table class="table table-striped">
+    <thead>
+                        <tr>
+                          <td>ID</td>
+                          <td>Image</td>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quantity Sold</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($data as $li)
+                          <tr>
+                            <td>{{$li->id}}</td>
+                          <td><img src="{{ asset('medicines_img/' . $li->image) }}" style="width:100px; height:100px;">
+                        </td>
+                            <td>{{$li->generic_name}}</td>
+                            <td>Rp. {{$li->price}}</td>
+                            <td>{{$li->sold}}</td>
+                          </tr>
+                      @endforeach
+                    </tbody>
+    </table>
 </div>
 
 @endsection

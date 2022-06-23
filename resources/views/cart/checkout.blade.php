@@ -46,7 +46,7 @@
         <tfoot>
         <tr>
             <td><a href="{{ route('shop') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
-            <td colspan="2" class="hidden-xs"> <a href="{{ route('submitcheckout') }}" class="btn btn-danger"> Finish <i class="fa fa-angle-right"></i></a></td>
+            <td colspan="2" class="hidden-xs"> <a href="{{ route('submitcheckout') }}" class="btn btn-danger"> Confirm Checkout <i class="fa fa-angle-right"></i></a></td>
             <td class="hidden-xs text-center"><strong>Total Rp. {{ $total }}</strong></td>
         </tr>
         </tfoot>

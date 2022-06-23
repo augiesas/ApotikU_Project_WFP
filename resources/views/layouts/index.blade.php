@@ -40,17 +40,23 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="logo">
                         <div class="site-logo">
-                            <a href="home" class="js-logo-clone">ApotekU</a>
+                            <a href="{{ route('home') }}" class="js-logo-clone">ApotekU</a>
                         </div>
                     </div>
                     <div class="main-nav d-none d-lg-block">
                         <nav class="site-navigation text-right text-md-center" role="navigation">
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                <li><a href="home">Home</a></li>
+                                <li><a href="{{ route('home') }}">Home</a></li>
                                 @if (Auth::check() && Auth::user()->isAdmin())
-                                    <li><a href="{{route('listmedicine')}}">Medicine</a></li>
+                                    <li class="has-children">
+                                        <a href="#">Admin Control</a>
+                                        <ul class="dropdown">
+                                            <li><a href="{{ route('listmedicine') }}">Medicine</a></li>
+                                            <li><a href="{{ route('categoryy') }}">Category</a></li>
+                                        </ul>
+                                    </li>
                                 @else
-                                    <li><a href="{{route('shop')}}">Store</a></li>
+                                    <li><a href="{{ route('shop') }}">Store</a></li>
                                 @endif
 
 
@@ -59,34 +65,24 @@
 
                                         <a href="#">Report</a>
                                         <ul class="dropdown">
-                                            <li><a href="{{route('topMedicine')}}">Top Medicine</a></li>
-                                            <li><a href="{{route('topCustomer')}}">Top Customer</a></li>
-                                            <li><a href="{{route('alltrans')}}">All Transaction</a></li>
+                                            <li><a href="{{ route('topMedicine') }}">Top Medicine</a></li>
+                                            <li><a href="{{ route('topCustomer') }}">Top Customer</a></li>
+                                            <li><a href="{{ route('alltrans') }}">All Transaction</a></li>
                                         </ul>
                                     </li>
                                 @endif
                                 @if (Auth::check())
-                                @if (!Auth::user()->isAdmin())
-                                    <li><a href="{{ route('history') }}">Riwayat Beli</a></li>
+                                    @if (!Auth::user()->isAdmin())
+                                        <li><a href="{{ route('history') }}">Riwayat Beli</a></li>
                                     @endif
                                     <li class="has-children">
                                         <a href="#">User</a>
                                         <ul class="dropdown">
                                             @if (Auth::user()->isAdmin())
-                                                <li><a href="{{route('listUser')}}">List User</a></li>
+                                                <li><a href="{{ route('listUser') }}">List User</a></li>
                                             @endif
 
-                                            <li><a href="edituser/{{ Auth::user()->id }}">Edit Profile</a></li>
-
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (Auth::check() && Auth::user()->isAdmin())
-                                    <li class="has-children">
-                                        <a href="#">Admin Control</a>
-                                        <ul class="dropdown">
-                                            <li><a href="{{route('addmedicine')}}">Add Medicine</a></li>
-                                            <li><a href="{{route('categoryy')}}">Category</a></li>
+                                            <li><a href="{{ url('edituser', Auth::user()->id) }}">Edit Profile</a></li>
 
                                         </ul>
                                     </li>
@@ -94,9 +90,9 @@
                             </ul>
                         </nav>
                     </div>
-                    @if (Auth::check())
+                    @if (Auth::check() && !Auth::user()->isAdmin())
                         <div class="icons">
-                            <a href="{{url('cart')}}" class="icons-btn d-inline-block bag">
+                            <a href="{{ url('cart') }}" class="icons-btn d-inline-block bag">
                                 <span class="icon-shopping-bag"></span>
                             </a>
                     @endif
@@ -132,8 +128,6 @@
                         </div>
                     @endif
                     </a>
-
-
                 </div>
             </div>
         </div>
@@ -154,7 +148,8 @@
 
                         <div class="block-7">
                             <h3 class="footer-heading mb-4">About Us</h3>
-                            <p>ApotekU <br> 160419022 - Augie Salvatory A, 160419048 - Golden Wijaya O, 160419063 - Dhikananda Vinita, 160419069 - Nur Fitriana, 160419155 - Eduard Williams T</p>
+                            <p>ApotekU <br> 160419022 - Augie Salvatory A, 160419048 - Golden Wijaya O, 160419063 -
+                                Dhikananda Vinita, 160419069 - Nur Fitriana, 160419155 - Eduard Williams T</p>
                         </div>
 
                     </div>

@@ -8,7 +8,7 @@ class Category extends Model
 {
     public $timestamps = false;
 
-    public function medicines()
+    public function medicine()
     {
         return $this->hasMany('App\Medicine','category_id','id');
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class CategoryController extends Controller
 {
@@ -25,10 +26,17 @@ class CategoryController extends Controller
             $id = $request->get('id');
             $category = Category::find($id);
             $category->delete();
-
-       
+            // return redirect()->route('category.index')->with('status','Category successfully deleted');
+            return response()->json(array(
+                'status' => 'ok',
+                'msg' => 'Category successfully deleted'
+            ), 200);
         } catch (\PDOException $e) {
- 
+            // return redirect()->route('category.index')->with('status','You Cannot Delete ');
+            return response()->json(array(
+                'status' => 'ok',
+                'msg' => 'You Cannot Delete'
+            ), 200);
         }
     }
     /**
@@ -53,7 +61,7 @@ class CategoryController extends Controller
         $data->name = $request->get('name');
         $data->description = $request->get('description');
         $data->save();
-        return redirect()->route('category.index')->with('status','Category successfully Addded');
+        return redirect()->route('category.index')->with('status','Category successfully added');
     }
     public function getEditForm(Request $request)
     {
@@ -83,8 +91,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $data = $category;
-        // return view('category.edit', compact('data'));
+        //
     }
 
     /**
@@ -110,16 +117,18 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        $this->authorize('delete-permission', $category);
+        $user = Auth::user();
+        $this->authorize('delete-permission', $user);
+
+        $category = Category::find($id);
+        // $data = Medicine::find($category);
         try {
             $category->delete();
-            // return redirect()->route('category.index')->with('status','Category successfully deleted');
+            return redirect()->route('category.index')->with('status','Category successfully deleted');
         } catch (\PDOException $e) {
-            $msg = "Data gagal dihapus. Pastikan data child sudah hilang atau tidak berhubungan";
-
-            // return redirect()->route('category.index')->with('status','Category successfully deleted');
+            return redirect()->route('category.index')->with('status','You Cannot ');
         }
     }
 

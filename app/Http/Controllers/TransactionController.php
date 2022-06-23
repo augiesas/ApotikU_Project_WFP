@@ -45,13 +45,13 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $data = new Transaction();
-        dd($request->get('total'));
-        // $data->user_id = $request->get('user_id');
-        // $data->total = $request->get('total');
-        // $data->transaction_date = $request->get('transaction_date');
+        // dd($request->get('total'));
+        $data->user_id = $request->get('user_id');
+        $data->total = $request->get('total');
+        $data->transaction_date = $request->get('transaction_date');
 
-        // $data->save();
-        // return redirect()->route('reportShowAllDataNFP')->with('status','Transaction is added');
+        $data->save();
+        return redirect()->route('reportShowAllDataNFP')->with('status','Transaction is added');
     }
 
     /**
