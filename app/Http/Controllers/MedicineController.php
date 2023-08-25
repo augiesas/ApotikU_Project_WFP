@@ -137,7 +137,7 @@ class MedicineController extends Controller
             $medicine->delete();
             return redirect()->route('listmedicine')->with('status', 'Medicine is Deleted');
         } catch (\PDOException $e) {
-            return redirect()->route('listmedicine')->with('status', "Can't delete this medicine");
+            return redirect()->route('listmedicine')->with('error', "Can't delete this medicine");
         }
     }
     public function getEditForm(Request $request)
